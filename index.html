@@ -30,32 +30,44 @@
   <script>
   let noClickCount = 0;
 
+  // Replace with your actual Form URL and Entry ID
+  const FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSc6MYnaF7BPbr36uQ_qyniN_TPKdh8rNPxovoLOYG--DFX30Q/formResponse";
+  const ENTRY_ID = "entry.827928755";
+
+  function sendToGoogleForms(answer) {
+    const formData = new FormData();
+    formData.append(ENTRY_ID, answer);
+
+    fetch(FORM_URL, {
+      method: "POST",
+      mode: "no-cors",
+      body: formData
+    });
+  }
+
   function goToPage2() {
     document.querySelector('.page1').classList.add('hidden');
     document.querySelector('.page2').classList.remove('hidden');
   }
 
   function handleYes() {
+    sendToGoogleForms("Yes");
     document.querySelector('.page2').classList.add('hidden');
     document.querySelector('.page3').classList.remove('hidden');
   }
 
   function handleNo() {
+    sendToGoogleForms("No");
+
     const question = document.getElementById('question');
-
-    // Remove previous animation class
     question.classList.remove('fade-in', 'plead');
-
-    // Trigger reflow to restart animation
     void question.offsetWidth;
 
     if (noClickCount === 0) {
       question.textContent = "Please aa jao na 🥺";
     }
 
-    // Add animation class again
     question.classList.add('plead');
-
     noClickCount++;
   }
 </script>

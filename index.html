@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Question for You</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="container">
+    <div class="page page1">
+      <h1 class="fade-in">Helo my pasindida aaurat👉🏻👈🏻😗 I have a question for you...</h1>
+      <button onclick="goToPage2()" class="next-btn">Continue</button>
+    </div>
+
+    <div class="page page2 hidden">
+      <h2 class="fade-in" id="question">Ap Saturday ko milne aa rhe ho?</h2>
+      <div class="button-group fade-in">
+        <button onclick="handleYes()">Yes ❤️</button>
+        <button onclick="handleNo()">No 😔</button>
+      </div>
+    </div>
+
+    <div class="page page3 hidden">
+      <h2 class="fade-in">Yay! ❤️ Ready rhana fir😙</h2>
+    </div>
+  </div>
+
+  <script>
+  let noClickCount = 0;
+
+  function goToPage2() {
+    document.querySelector('.page1').classList.add('hidden');
+    document.querySelector('.page2').classList.remove('hidden');
+  }
+
+  function handleYes() {
+    document.querySelector('.page2').classList.add('hidden');
+    document.querySelector('.page3').classList.remove('hidden');
+  }
+
+  function handleNo() {
+    const question = document.getElementById('question');
+
+    // Remove previous animation class
+    question.classList.remove('fade-in', 'plead');
+
+    // Trigger reflow to restart animation
+    void question.offsetWidth;
+
+    if (noClickCount === 0) {
+      question.textContent = "Please aa jao na 🥺";
+    }
+
+    // Add animation class again
+    question.classList.add('plead');
+
+    noClickCount++;
+  }
+</script>
+
+</body>
+</html>
